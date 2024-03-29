@@ -202,7 +202,7 @@ public enum VelocityForgeClientConnectionPhase implements ClientConnectionPhase 
 
   private boolean isResettable(ConnectedPlayer player) {
     if (player.getModInfo().isPresent()) {
-      return player.getModInfo().get().getMods().stream().anyMatch((mod -> mod.getId().equals("modcraftmc")));
+      return player.getModInfo().get().getMods().stream().anyMatch((mod -> mod.getId().equals("modcraftmod")));
     }
     return false;
   }
