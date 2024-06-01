@@ -54,9 +54,10 @@ public class ForgeHandshakeUtils {
     return stream.toByteArray();
   }
 
-  public static byte[] generateResetPacket() {
+  public static byte[] generateResetPacket(String destinationServer) {
     ByteArrayDataOutput dataAndPacketIdStream = ByteStreams.newDataOutput();
     writeVarInt(dataAndPacketIdStream,98);
+    writeUtf(dataAndPacketIdStream, destinationServer);
 
     ByteArrayDataOutput stream = ByteStreams.newDataOutput();
     byte[] dataAndPacketId = dataAndPacketIdStream.toByteArray();
@@ -65,9 +66,10 @@ public class ForgeHandshakeUtils {
     stream.write(dataAndPacketId);
     return stream.toByteArray();
   }
-  public static byte[] generatePluginResetPacket() {
+  public static byte[] generatePluginResetPacket(String destinationServer) {
     ByteArrayDataOutput dataAndPacketIdStream = ByteStreams.newDataOutput();
     writeVarInt(dataAndPacketIdStream,98);
+    writeUtf(dataAndPacketIdStream, destinationServer);
     return dataAndPacketIdStream.toByteArray();
   }
 

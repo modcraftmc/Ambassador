@@ -61,11 +61,13 @@ public enum VelocityForgeClientConnectionPhase implements ClientConnectionPhase 
       //Don't handle anything from the server until the reset has completed.
       //player.getConnectionInFlight().getConnection().getChannel().config().setAutoRead(false);
 
+      String destinationServer = player.getConnectionInFlight().getServer().getServerInfo().getName();
+
       if (connection.getState() == StateRegistry.PLAY || connection.getState() == StateRegistry.CONFIG) {
-        connection.write(new PluginMessagePacket("fml:handshake", Unpooled.wrappedBuffer(ForgeHandshakeUtils.generatePluginResetPacket())));
+        connection.write(new PluginMessagePacket("fml:handshake", Unpooled.wrappedBuffer(ForgeHandshakeUtils.generatePluginResetPacket(destinationServer))));
         connection.setState(StateRegistry.LOGIN);
       } else {
-        connection.write(new LoginPluginMessagePacket(98,"fml:loginwrapper", Unpooled.wrappedBuffer(ForgeHandshakeUtils.generateResetPacket())));
+        connection.write(new LoginPluginMessagePacket(98,"fml:loginwrapper", Unpooled.wrappedBuffer(ForgeHandshakeUtils.generateResetPacket(destinationServer))));
       }
 
       //Prepare to receive reset ACK
