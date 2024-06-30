@@ -88,7 +88,7 @@ public enum VelocityForgeClientConnectionPhase implements ClientConnectionPhase 
     @Override
     void onTransitionToNewPhase(ConnectedPlayer player) {
       //We unregister so no plugin sees this client while the client is being reset.
-      ((VelocityServer) Ambassador.getInstance().server).unregisterConnection(player);
+      //((VelocityServer) Ambassador.getInstance().server).unregisterConnection(player);
       player.getConnection().getChannel().pipeline().addAfter(Connections.MINECRAFT_ENCODER,
               ForgeConstants.LOGIN_PACKET_QUEUE, new ClientPacketQueue(StateRegistry.PLAY));
       if (player.getConnection().getChannel().pipeline().get(ForgeConstants.PLUGIN_PACKET_QUEUE) == null)
@@ -121,7 +121,7 @@ public enum VelocityForgeClientConnectionPhase implements ClientConnectionPhase 
     void onTransitionToNewPhase(ConnectedPlayer player) {
       //Plugins may now send packets to client
       player.getConnection().getChannel().pipeline().remove(ForgeConstants.PLUGIN_PACKET_QUEUE);
-      ((VelocityServer) Ambassador.getInstance().server).registerConnection(player);
+      // ((VelocityServer) Ambassador.getInstance().server).registerConnection(player);
     }
 
     @Override
